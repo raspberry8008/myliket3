@@ -1,15 +1,13 @@
 package com.myliket.myliket3.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /*
@@ -22,9 +20,8 @@ import java.util.UUID;
  *  LocalDateTime categoryUpdatedAt : 카테고리 마지막 수정일시
  */
 
+@ToString
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name ="category")
@@ -33,22 +30,38 @@ public class Category {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "categoryId", columnDefinition = "BINARY(16)")
+    @Column(name = "categoryid", columnDefinition = "BINARY(16)")
     private UUID categoryId;
 
-    @Column(name = "categoryName")
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "categoryid")
+//    private Long categoryId;
+
+
+    @Column(name = "categoryname")
     private String categoryName;
 
-    @Column(name = "categoryState")
+    @Column(name = "categorystate")
     private String categoryState;
 
-    @Column(name = "createdAt")
+    @Column(name = "createdat")
     private LocalDateTime createdAt;
 
-    @Column(name = "updatedAt")
+    @Column(name = "updatedat")
     private LocalDateTime updatedAt;
 
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE, orphanRemoval = true)
+
+    @Builder
+    public Category(UUID categoryId, String categoryName, String categoryState, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.categoryState = categoryState;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    //    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE, orphanRemoval = true)
 //    private List<Category> categories = new ArrayList<>();
 
 }

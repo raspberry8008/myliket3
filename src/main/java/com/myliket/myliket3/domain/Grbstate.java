@@ -23,13 +23,13 @@ import javax.persistence.Table;
 public class Grbstate {
 
     @Id
-    @Column(name = "stateCode")
+    @Column(name = "statecode")
     private String stateCode;
 
-    @Column(name = "stateKor")
+    @Column(name = "statekor")
     private String stateKor;
 
-    @Column(name = "stateCategory")
+    @Column(name = "statecategory")
     private String stateCategory;
 
 }

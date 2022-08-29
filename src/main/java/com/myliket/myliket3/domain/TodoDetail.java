@@ -1,5 +1,6 @@
 package com.myliket.myliket3.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,29 +32,45 @@ public class TodoDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "todono")
     private Long todoNo;
 
-    @Column(name = "categoryId", columnDefinition = "BINARY(16)")
+    @Column(name = "categoryid", columnDefinition = "BINARY(16)")
     private UUID categoryId;
 
-    @Column(name = "todoTitle")
+    @Column(name = "todotitle")
     private String todoTitle;
 
-    @Column(name = "todoContent")
+    @Column(name = "todocontent")
     private String todoContent;
 
-    @Column(name = "todoDay")
+    @Column(name = "tododay")
     private LocalDate todoDay;
 
-    @Column(name = "todoTime")
+    @Column(name = "todotime")
     private LocalTime todoTime;
 
-    @Column(name = "todoState")
+    @Column(name = "todostate")
     private String todoState;
 
-    @Column(name = "createdAt")
-    private LocalDateTime todoCreatedAt;
+    @Column(name = "createdat")
+    private LocalDateTime createdAt;
 
-    @Column(name = "updatedAt")
+    @Column(name = "updatedat")
     private LocalDateTime updatedAt;
+
+    @Builder
+    public TodoDetail(Long todoNo, UUID categoryId, String todoTitle, String todoContent, LocalDate todoDay, LocalTime todoTime, String todoState, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.todoNo = todoNo;
+        this.categoryId = categoryId;
+        this.todoTitle = todoTitle;
+        this.todoContent = todoContent;
+        this.todoDay = todoDay;
+        this.todoTime = todoTime;
+        this.todoState = todoState;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+
 }
