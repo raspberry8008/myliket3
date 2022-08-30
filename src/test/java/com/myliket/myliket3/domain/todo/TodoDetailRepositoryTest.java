@@ -1,10 +1,7 @@
-package com.myliket.myliket3;
+package com.myliket.myliket3.domain.todo;
 
-import com.myliket.myliket3.domain.TodoDetail;
-import com.myliket.myliket3.domain.TodoDetailRepository;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -27,9 +24,8 @@ public class TodoDetailRepositoryTest {
     @Autowired
     TodoDetailRepository todoDetailRepository;
 
-    @DisplayName("할일 등록 테스트")
     @Test
-    public void todoDetailSaveTest() {
+    public void 할일_등록하기() {
 
         String uuid = "88e0977f-c057-49d1-b4c2-15fa5d261e25".replace("-", "");
         UUID testUUID = new UUID(
@@ -50,17 +46,15 @@ public class TodoDetailRepositoryTest {
         todoDetailRepository.save(todoDetail);
     }
 
-    @DisplayName("할일 전체 목록 조회 테스트")
     @Test
-    public void todoDetailFindAllTest() {
+    public void 할일_전체목록조회() {
 
         List<TodoDetail> todoDetails = todoDetailRepository.findAll();
 
     }
 
-    @DisplayName("할일 단일 조회 테스트")
     @Test
-    public void todoDetailFindIdTest() {
+    public void 할일_상세조회() {
 
         Optional<TodoDetail> todoDetail = todoDetailRepository.findById(1L);
 
@@ -73,9 +67,8 @@ public class TodoDetailRepositoryTest {
 
     }
 
-    @DisplayName("할일 수정 테스트")
     @Test
-    public void todoDetailUpdateTest() {
+    public void 할일_수정하기() {
 
         String uuid = "88e0977f-c057-49d1-b4c2-15fa5d261e25".replace("-", "");
         UUID testUUID = new UUID(
@@ -100,9 +93,8 @@ public class TodoDetailRepositoryTest {
         todoDetailRepository.save(todoDetailInfo);
     }
 
-    @DisplayName("할일 삭제 테스트")
     @Test
-    public void todoDetailDeleteTest() {
+    public void 할일_삭제하기() {
 
         // 1. 할일 조회
         Optional<TodoDetail> todoDetail = todoDetailRepository.findById(6L);

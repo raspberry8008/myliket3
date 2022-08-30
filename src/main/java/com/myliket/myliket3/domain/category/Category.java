@@ -1,4 +1,4 @@
-package com.myliket.myliket3.domain;
+package com.myliket.myliket3.domain.category;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +7,9 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,7 +23,6 @@ import java.util.UUID;
  *  LocalDateTime categoryUpdatedAt : 카테고리 마지막 수정일시
  */
 
-@ToString
 @Getter
 @NoArgsConstructor
 @Entity
@@ -32,22 +34,21 @@ public class Category {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "categoryid", columnDefinition = "BINARY(16)")
     private UUID categoryId;
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "categoryid")
-//    private Long categoryId;
-
-
+    @NotBlank
+    @Size(max=15)
     @Column(name = "categoryname")
     private String categoryName;
 
+    @NotBlank
+    @Size(min=2, max=2)
     @Column(name = "categorystate")
     private String categoryState;
 
+    @NotNull
     @Column(name = "createdat")
     private LocalDateTime createdAt;
 
+    @NotNull
     @Column(name = "updatedat")
     private LocalDateTime updatedAt;
 

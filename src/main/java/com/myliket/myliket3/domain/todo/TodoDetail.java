@@ -1,10 +1,13 @@
-package com.myliket.myliket3.domain;
+package com.myliket.myliket3.domain.todo;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -35,27 +38,35 @@ public class TodoDetail {
     @Column(name = "todono")
     private Long todoNo;
 
+    @NotNull
     @Column(name = "categoryid", columnDefinition = "BINARY(16)")
     private UUID categoryId;
 
+    @NotBlank
+    @Size(max=15)
     @Column(name = "todotitle")
     private String todoTitle;
 
+    @NotBlank
+    @Size(max=100)
     @Column(name = "todocontent")
     private String todoContent;
 
+    @NotNull
     @Column(name = "tododay")
     private LocalDate todoDay;
-
+    @NotNull
     @Column(name = "todotime")
     private LocalTime todoTime;
 
+    @NotBlank
+    @Size(min=2, max=2)
     @Column(name = "todostate")
     private String todoState;
-
+    @NotNull
     @Column(name = "createdat")
     private LocalDateTime createdAt;
-
+    @NotNull
     @Column(name = "updatedat")
     private LocalDateTime updatedAt;
 
