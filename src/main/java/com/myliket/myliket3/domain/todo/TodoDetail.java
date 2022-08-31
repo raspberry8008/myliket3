@@ -1,5 +1,6 @@
 package com.myliket.myliket3.domain.todo;
 
+import com.myliket.myliket3.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name ="tododetail")
-public class TodoDetail {
+public class TodoDetail extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,15 +64,10 @@ public class TodoDetail {
     @Size(min=2, max=2)
     @Column(name = "todostate")
     private String todoState;
-    @NotNull
-    @Column(name = "createdat")
-    private LocalDateTime createdAt;
-    @NotNull
-    @Column(name = "updatedat")
-    private LocalDateTime updatedAt;
+
 
     @Builder
-    public TodoDetail(Long todoNo, UUID categoryId, String todoTitle, String todoContent, LocalDate todoDay, LocalTime todoTime, String todoState, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public TodoDetail(Long todoNo, UUID categoryId, String todoTitle, String todoContent, LocalDate todoDay, LocalTime todoTime, String todoState) {
         this.todoNo = todoNo;
         this.categoryId = categoryId;
         this.todoTitle = todoTitle;
@@ -79,8 +75,6 @@ public class TodoDetail {
         this.todoDay = todoDay;
         this.todoTime = todoTime;
         this.todoState = todoState;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
 

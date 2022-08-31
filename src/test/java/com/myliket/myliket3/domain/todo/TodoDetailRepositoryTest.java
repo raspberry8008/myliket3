@@ -39,8 +39,6 @@ public class TodoDetailRepositoryTest {
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
                 .todoState("TY")
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build();
 
         todoDetailRepository.save(todoDetail);
@@ -86,8 +84,6 @@ public class TodoDetailRepositoryTest {
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
                 .todoState("TY")
-                .createdAt(todoDetail.get().getCreatedAt())
-                .updatedAt(LocalDateTime.now())
                 .build();
 
         todoDetailRepository.save(todoDetailInfo);
