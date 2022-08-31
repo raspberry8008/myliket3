@@ -1,6 +1,5 @@
 package com.myliket.myliket3.web;
 
-import com.myliket.myliket3.domain.category.Category;
 import com.myliket.myliket3.service.category.CategoryService;
 import com.myliket.myliket3.web.dto.CategoryDto;
 import com.myliket.myliket3.web.dto.Response;
@@ -11,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
-import java.math.BigInteger;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -29,7 +27,6 @@ public class CategoryApiController {
     @GetMapping(value = "")
     public ResponseEntity<Response> allCategoryList() throws Exception {
         return ResponseEntity.ok().body(categoryService.allCategoryList());
-
     }
 
     /**
@@ -41,10 +38,7 @@ public class CategoryApiController {
 
     @GetMapping(value = "/{categoryId}")
     public ResponseEntity<Response> getCategoryDetail(@PathVariable("categoryId") @NotBlank UUID categoryId) throws Exception {
-
-
         return ResponseEntity.ok().body(categoryService.getCategoryDetail(CategoryDto.RequestInfo.builder().categoryId(categoryId).build()));
-
     }
 
     /**
@@ -55,7 +49,6 @@ public class CategoryApiController {
      */
     @PostMapping(value = "")
     public ResponseEntity<Void> insertCategory(@RequestBody @Validated CategoryDto.RequestInsert requestInsert) throws Exception {
-
         categoryService.insertCategory(requestInsert);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -79,15 +72,8 @@ public class CategoryApiController {
      * @return ResponseEntity<Object> 201 CREATED : 이동할 페이지 없음
      */
     @DeleteMapping(value = "/{categoryId}")
-    public ResponseEntity<Object> deleteCategory(@PathVariable("categoryId") @NotBlank String categoryId) throws Exception {
-
-        UUID categoryUUID = new UUID(
-                new BigInteger(categoryId.substring(0, 16), 16).longValue(),
-                new BigInteger(categoryId.substring(16), 16).longValue());
-
-
-        categoryService.deleteCategory(CategoryDto.RequestInfo.builder().categoryId(categoryUUID).build());
-
+    public ResponseEntity<Object> deleteCategory(@PathVariable("categoryId") @NotBlank UUID categoryId) throws Exception {
+        categoryService.deleteCategory(CategoryDto.RequestInfo.builder().categoryId(categoryId).build());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

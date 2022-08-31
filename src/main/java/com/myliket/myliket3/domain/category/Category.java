@@ -2,17 +2,15 @@ package com.myliket.myliket3.domain.category;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.myliket.myliket3.domain.BaseTimeEntity;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /*

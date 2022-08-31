@@ -3,11 +3,11 @@ package com.myliket.myliket3.service.category;
 import com.myliket.myliket3.domain.category.Category;
 import com.myliket.myliket3.domain.category.CategoryRepository;
 import com.myliket.myliket3.web.dto.CategoryDto;
+import com.myliket.myliket3.web.dto.CategoryResponseDto;
 import com.myliket.myliket3.web.dto.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
 
@@ -26,13 +26,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Response getCategoryDetail(CategoryDto.RequestInfo requestInfo) throws Exception {
 
-        Optional<Category> result = categoryRepository.findById(requestInfo.getCategoryId());
+        Optional<Category> resultEntity = categoryRepository.findById(requestInfo.getCategoryId());
 
-        if (ObjectUtils.isEmpty(result) || ObjectUtils.nullSafeEquals(null, result)) {
-            Category categoryVO2 = Category.builder().build();
-            return Response.builder().data(categoryVO2).build();
+        if (resultEntity.isEmpty()){
+            return Response.builder().data(new CategoryResponseDto(new Category())).build();
         } else {
-            return Response.builder().data(result).build();
+            Category resultDto =categoryRepository.getReferenceById(requestInfo.getCategoryId());
+            return Response.builder().data(new CategoryResponseDto(resultDto)).build();
         }
 
     }

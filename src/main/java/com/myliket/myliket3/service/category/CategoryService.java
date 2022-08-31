@@ -1,6 +1,5 @@
 package com.myliket.myliket3.service.category;
 
-import com.myliket.myliket3.domain.category.Category;
 import com.myliket.myliket3.web.dto.CategoryDto;
 import com.myliket.myliket3.web.dto.Response;
 

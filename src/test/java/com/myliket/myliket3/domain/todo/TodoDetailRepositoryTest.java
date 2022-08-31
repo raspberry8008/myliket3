@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +37,7 @@ public class TodoDetailRepositoryTest {
                 .todoContent("할일 내용 입니다.")
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
-                .todoState("TY")
+                .todoState("TR")
                 .build();
 
         todoDetailRepository.save(todoDetail);
@@ -83,7 +82,7 @@ public class TodoDetailRepositoryTest {
                 .todoContent("할일 내용 입니다.")
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
-                .todoState("TY")
+                .todoState("TR")
                 .build();
 
         todoDetailRepository.save(todoDetailInfo);

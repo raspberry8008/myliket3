@@ -1,16 +1,14 @@
 package com.myliket.myliket3.domain.todo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.myliket.myliket3.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -28,6 +26,9 @@ import java.util.UUID;
     LocalDateTime todoUpdatedAt : 할일 마지막 수정일
 
  */
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+//@ToString(of = "data")
 @Getter
 @NoArgsConstructor
 @Entity
@@ -39,28 +40,28 @@ public class TodoDetail extends BaseTimeEntity {
     @Column(name = "todono")
     private Long todoNo;
 
-    @NotNull
+
     @Column(name = "categoryid", columnDefinition = "BINARY(16)")
     private UUID categoryId;
 
-    @NotBlank
+
     @Size(max=15)
     @Column(name = "todotitle")
     private String todoTitle;
 
-    @NotBlank
+
     @Size(max=100)
     @Column(name = "todocontent")
     private String todoContent;
 
-    @NotNull
+
     @Column(name = "tododay")
     private LocalDate todoDay;
-    @NotNull
+
     @Column(name = "todotime")
     private LocalTime todoTime;
 
-    @NotBlank
+
     @Size(min=2, max=2)
     @Column(name = "todostate")
     private String todoState;
@@ -76,6 +77,5 @@ public class TodoDetail extends BaseTimeEntity {
         this.todoTime = todoTime;
         this.todoState = todoState;
     }
-
 
 }

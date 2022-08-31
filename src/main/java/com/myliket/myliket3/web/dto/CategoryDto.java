@@ -35,7 +35,6 @@ public class CategoryDto {
             return Category.builder()
                     .categoryId(categoryId)
                     .build();
-
         }
     }
 
