@@ -1,10 +1,11 @@
 package com.myliket.myliket3.domain.category;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +24,7 @@ import java.util.UUID;
  *  LocalDateTime categoryUpdatedAt : 카테고리 마지막 수정일시
  */
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @NoArgsConstructor
 @Entity
@@ -34,21 +36,22 @@ public class Category {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "categoryid", columnDefinition = "BINARY(16)")
     private UUID categoryId;
-    @NotBlank
+    @NotNull
     @Size(max=15)
     @Column(name = "categoryname")
     private String categoryName;
 
     @NotBlank
     @Size(min=2, max=2)
-    @Column(name = "categorystate")
+    @Column(name = "categorystate", columnDefinition = "VARCHAR(2) default 'CY'")
     private String categoryState;
 
-    @NotNull
+
+    @CreationTimestamp
     @Column(name = "createdat")
     private LocalDateTime createdAt;
 
-    @NotNull
+    @UpdateTimestamp
     @Column(name = "updatedat")
     private LocalDateTime updatedAt;
 
