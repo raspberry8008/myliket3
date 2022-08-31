@@ -45,18 +45,14 @@ public class CategoryApiControllerTest {
     @Test
     public void Category_등록하기() {
         //given
-        UUID categoryId = null;
         String name = "카테고리 이름";
         String state ="CY";
-        LocalDateTime createdAt=LocalDateTime.now();
-        LocalDateTime updatedAt=LocalDateTime.now();
+
 
         Category categoryDto = Category.builder()
                 .categoryId(UUID.randomUUID())
                 .categoryName(name)
                 .categoryState(state)
-                .createdAt(createdAt)
-                .updatedAt(updatedAt)
                 .build();
 
         System.out.println("categoryDto:"+ categoryDto);

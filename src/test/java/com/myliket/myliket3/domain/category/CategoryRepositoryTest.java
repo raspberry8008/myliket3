@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,8 +29,6 @@ public class CategoryRepositoryTest {
                 .categoryId(UUID.randomUUID())
                 .categoryName("Test")
                 .categoryState("CY")
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build();
 
         categoryRepository.save(category);
@@ -79,8 +76,6 @@ public class CategoryRepositoryTest {
                 .categoryId(testUUID)
                 .categoryName("수정 Test..")
                 .categoryState("CY")
-                .createdAt(category.get().getCreatedAt())
-                .updatedAt(LocalDateTime.now())
                 .build();
 
         categoryRepository.save(categoryInfo);

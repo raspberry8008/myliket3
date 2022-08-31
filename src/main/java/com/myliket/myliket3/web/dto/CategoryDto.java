@@ -1,20 +1,14 @@
 package com.myliket.myliket3.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.myliket.myliket3.domain.BaseTimeEntity;
 import com.myliket.myliket3.domain.category.Category;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CategoryDto {
@@ -55,7 +49,7 @@ public class CategoryDto {
      */
     @Getter
     @NoArgsConstructor
-    public static class RequestInsert {
+    public static class RequestInsert extends BaseTimeEntity {
 
         private UUID categoryId;
         {
@@ -72,29 +66,22 @@ public class CategoryDto {
             categoryState="CY";
         }
 
-        private LocalDateTime createdAt;
-
-        private LocalDateTime updatedAt;
-
-
 
         @Builder
-        public RequestInsert(UUID categoryId, String categoryName, String categoryState, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        public RequestInsert(UUID categoryId, String categoryName, String categoryState) {
             this.categoryId = categoryId;
             this.categoryName = categoryName;
             this.categoryState = categoryState;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
         }
+
 
         public Category toEntity(){
             return Category.builder()
                     .categoryId(categoryId)
                     .categoryName(categoryName)
                     .categoryState(categoryState)
-                    .createdAt(createdAt)
-                    .updatedAt(createdAt)
                     .build();
+
         }
     }
 
@@ -114,12 +101,6 @@ public class CategoryDto {
         @JsonFormat(shape=JsonFormat.Shape.OBJECT)
 //        @Pattern(regexp = "^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$", message = "카테고리 아이디를 입력해주세요.")
         private UUID categoryId;
-//        {
-//            String categoryId;
-//            UUID categoryId = new UUID(
-//                    new BigInteger(categoryId.substring(0, 16), 16).longValue(),
-//                    new BigInteger(categoryId.substring(16), 16).longValue());
-//        }
 
         @NotBlank
         @Size(min=1, max=15)
@@ -128,21 +109,14 @@ public class CategoryDto {
         @Pattern(regexp = "[A-Z]{2}$", message = "카테고리 상태코드를 입력해주세요")
         private String categoryState;
 
-        @CreationTimestamp
-        private LocalDateTime createdAt;
 
-
-        @LastModifiedDate
-        private LocalDateTime updatedAt;
 
 
         @Builder
-        public RequestUpdate(UUID categoryId, String categoryName, String categoryState, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        public RequestUpdate(UUID categoryId, String categoryName, String categoryState) {
             this.categoryId = categoryId;
             this.categoryName = categoryName;
             this.categoryState = categoryState;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
         }
 
         public Category toEntity(){
@@ -150,8 +124,6 @@ public class CategoryDto {
                     .categoryId(categoryId)
                     .categoryName(categoryName)
                     .categoryState(categoryState)
-                    .createdAt(createdAt)
-                    .updatedAt(updatedAt)
                     .build();
         }
 

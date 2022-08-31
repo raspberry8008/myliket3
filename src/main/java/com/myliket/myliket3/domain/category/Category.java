@@ -1,6 +1,7 @@
 package com.myliket.myliket3.domain.category;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.myliket.myliket3.domain.BaseTimeEntity;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -29,7 +30,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name ="category")
-public class Category {
+public class Category extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -46,24 +47,13 @@ public class Category {
     @Column(name = "categorystate", columnDefinition = "VARCHAR(2) default 'CY'")
     private String categoryState;
 
-
-    @CreationTimestamp
-    @Column(name = "createdat")
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updatedat")
-    private LocalDateTime updatedAt;
-
-
     @Builder
-    public Category(UUID categoryId, String categoryName, String categoryState, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Category(UUID categoryId, String categoryName, String categoryState) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryState = categoryState;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
+
 
     //    @OneToMany(mappedBy = "category", cascade = CascadeType.MERGE, orphanRemoval = true)
 //    private List<Category> categories = new ArrayList<>();

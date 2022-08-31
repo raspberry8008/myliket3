@@ -42,9 +42,6 @@ public class CategoryApiController {
     @GetMapping(value = "/{categoryId}")
     public ResponseEntity<Response> getCategoryDetail(@PathVariable("categoryId") @NotBlank UUID categoryId) throws Exception {
 
-//        UUID categoryUUID = new UUID(
-//                new BigInteger(categoryId.substring(0, 16), 16).longValue(),
-//                new BigInteger(categoryId.substring(16), 16).longValue());
 
         return ResponseEntity.ok().body(categoryService.getCategoryDetail(CategoryDto.RequestInfo.builder().categoryId(categoryId).build()));
 
@@ -89,15 +86,8 @@ public class CategoryApiController {
                 new BigInteger(categoryId.substring(16), 16).longValue());
 
 
-//        Category category = Category.builder().categoryId(categoryUUID).build();
-
-
         categoryService.deleteCategory(CategoryDto.RequestInfo.builder().categoryId(categoryUUID).build());
-//        int result = categoryService.deleteCategory(category);
 
-//        if (result == 0) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

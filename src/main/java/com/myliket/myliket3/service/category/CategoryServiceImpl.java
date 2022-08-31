@@ -3,7 +3,6 @@ package com.myliket.myliket3.service.category;
 import com.myliket.myliket3.domain.category.Category;
 import com.myliket.myliket3.domain.category.CategoryRepository;
 import com.myliket.myliket3.web.dto.CategoryDto;
-import com.myliket.myliket3.web.dto.CategoryResponseDto;
 import com.myliket.myliket3.web.dto.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -50,8 +48,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void updateCategory(CategoryDto.RequestUpdate requestUpdate) throws Exception {
         Optional<Category> category = categoryRepository.findById(requestUpdate.getCategoryId());
         requestUpdate.setCategoryId(category.get().getCategoryId());
-        requestUpdate.setCreatedAt(category.get().getCreatedAt());
-        System.out.println("requestUpdate:"+requestUpdate);
         categoryRepository.save(requestUpdate.toEntity());
     }
 
