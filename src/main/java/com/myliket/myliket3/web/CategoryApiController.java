@@ -1,8 +1,8 @@
 package com.myliket.myliket3.web;
 
+import com.myliket.myliket3.domain.dto.request.category.CategoryDto;
+import com.myliket.myliket3.domain.dto.response.common.Response;
 import com.myliket.myliket3.service.category.CategoryService;
-import com.myliket.myliket3.web.dto.CategoryDto;
-import com.myliket.myliket3.web.dto.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class CategoryApiController {
      * @return ResponseEntity<Response> 200 OK, 카테고리 정보 목록
      */
     @GetMapping(value = "")
-    public ResponseEntity<Response> allCategoryList() throws Exception {
+    public ResponseEntity<?> allCategoryList() throws Exception {
         return ResponseEntity.ok().body(categoryService.allCategoryList());
     }
 

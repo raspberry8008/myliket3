@@ -1,5 +1,9 @@
 package com.myliket.myliket3.domain.todo;
 
+import com.myliket.myliket3.domain.dto.request.category.CategoryDto;
+import com.myliket.myliket3.domain.entity.todo.TodoDetail;
+import com.myliket.myliket3.domain.entity.todo.TodoDetailRepository;
+import com.myliket.myliket3.domain.entity.todo.TodoDetailRepositorySupport;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +27,9 @@ public class TodoDetailRepositoryTest {
     @Autowired
     TodoDetailRepository todoDetailRepository;
 
+    @Autowired
+    TodoDetailRepositorySupport todoDetailRepositorySupport;
+
     @Test
     public void 할일_등록하기() {
 
@@ -32,13 +39,14 @@ public class TodoDetailRepositoryTest {
                 new BigInteger(uuid.substring(16), 16).longValue());
 
         TodoDetail todoDetail = TodoDetail.builder()
-                .categoryId(testUUID)
+                .category(CategoryDto.RequestInfo.builder().categoryId(testUUID).build().toEntity())
                 .todoTitle("할일 등록 테스트")
                 .todoContent("할일 내용 입니다.")
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
-                .todoState("TR")
+//                .todoState("TR")
                 .build();
+
 
         todoDetailRepository.save(todoDetail);
     }
@@ -47,6 +55,7 @@ public class TodoDetailRepositoryTest {
     public void 할일_전체목록조회() {
 
         List<TodoDetail> todoDetails = todoDetailRepository.findAll();
+//        List<?> todoDetails= todoDetailRepositorySupport.findAll();
 
     }
 
@@ -77,12 +86,12 @@ public class TodoDetailRepositoryTest {
 
         TodoDetail todoDetailInfo = TodoDetail.builder()
                 .todoNo(1L)
-                .categoryId(testUUID)
+                .category(CategoryDto.RequestInfo.builder().categoryId(testUUID).build().toEntity())
                 .todoTitle("할일 수정 테스트")
                 .todoContent("할일 내용 입니다.")
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
-                .todoState("TR")
+//                .todoState("TR")
                 .build();
 
         todoDetailRepository.save(todoDetailInfo);

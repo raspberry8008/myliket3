@@ -1,15 +1,18 @@
 package com.myliket.myliket3.service.category;
 
-import com.myliket.myliket3.domain.category.Category;
-import com.myliket.myliket3.domain.category.CategoryRepository;
-import com.myliket.myliket3.web.dto.CategoryDto;
-import com.myliket.myliket3.web.dto.CategoryResponseDto;
-import com.myliket.myliket3.web.dto.Response;
+import com.myliket.myliket3.domain.dto.request.category.CategoryDto;
+import com.myliket.myliket3.domain.dto.response.category.CategoryDetailDto;
+import com.myliket.myliket3.domain.dto.response.category.CategoryListDto;
+import com.myliket.myliket3.domain.dto.response.common.Response;
+import com.myliket.myliket3.domain.entity.category.Category;
+import com.myliket.myliket3.domain.entity.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RequiredArgsConstructor
 @Service
@@ -20,21 +23,26 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Response allCategoryList() throws Exception {
 
-        return Response.builder().resultList(categoryRepository.findAll()).build();
+        List<Category> resultList = categoryRepository.findAll();
+
+        CategoryListDto categoryListDto = new CategoryListDto();
+
+        return Response.builder()
+                .resultList(resultList.stream()
+                        .map(categoryListDto::toEntity)
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     @Override
     public Response getCategoryDetail(CategoryDto.RequestInfo requestInfo) throws Exception {
 
-        Optional<Category> resultEntity = categoryRepository.findById(requestInfo.getCategoryId());
-
-        if (resultEntity.isEmpty()){
-            return Response.builder().data(new CategoryResponseDto(new Category())).build();
+        if (categoryRepository.findById(requestInfo.getCategoryId()).isEmpty()) {
+            return Response.builder().data(new CategoryDetailDto()).build();
         } else {
-            Category resultDto =categoryRepository.getReferenceById(requestInfo.getCategoryId());
-            return Response.builder().data(new CategoryResponseDto(resultDto)).build();
+            Category resultDto = categoryRepository.getReferenceById(requestInfo.getCategoryId());
+            return Response.builder().data(new CategoryDetailDto(resultDto)).build();
         }
-
     }
 
     @Transactional
@@ -46,15 +54,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public void updateCategory(CategoryDto.RequestUpdate requestUpdate) throws Exception {
-        Optional<Category> category = categoryRepository.findById(requestUpdate.getCategoryId());
-        requestUpdate.setCategoryId(category.get().getCategoryId());
         categoryRepository.save(requestUpdate.toEntity());
     }
 
     @Transactional
     @Override
     public void deleteCategory(CategoryDto.RequestInfo requestInfo) throws Exception {
-        Category category = categoryRepository.findById(requestInfo.getCategoryId()).get();
-        categoryRepository.delete(category);
+        categoryRepository.delete(requestInfo.toEntity());
     }
 }

@@ -1,8 +1,10 @@
 package com.myliket.myliket3.web;
 
+import com.myliket.myliket3.domain.dto.request.todo.TodoPathDto;
+import com.myliket.myliket3.domain.dto.request.todo.TodoSaveDto;
+import com.myliket.myliket3.domain.dto.request.todo.TodoUpdateDto;
+import com.myliket.myliket3.domain.dto.response.common.Response;
 import com.myliket.myliket3.service.todo.TodoService;
-import com.myliket.myliket3.web.dto.Response;
-import com.myliket.myliket3.web.dto.TodoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +37,10 @@ public class TodoApiController {
      * @return ResponseEntity<Response> 200 OK, 카테고리 {categoryId} 의 할일목록
      */
     @GetMapping(value = "/{categoryId}/todos")
-    public ResponseEntity<Response> getCategoryTodoList(@PathVariable("categoryId") @NotBlank UUID categoryId) throws Exception {
-        TodoDto.PathCategoryId pathCategoryId = TodoDto.PathCategoryId.builder().categoryId(categoryId).build();
-        Response response = todoService.getCategoryTodoList(pathCategoryId);
-        return ResponseEntity.ok().body(response);
+    public ResponseEntity<?> getCategoryTodoList(@PathVariable("categoryId") @NotBlank UUID categoryId) throws Exception {
+        TodoPathDto.PathCategoryId pathCategoryId = TodoPathDto.PathCategoryId.builder().categoryId(categoryId).build();
+//        TodoDetail todoDetail = TodoDetail.builder().category(pathCategoryId.toEntity()).build();
+        return ResponseEntity.ok().body(todoService.getCategoryTodoList(pathCategoryId));
     }
 
     /**
@@ -51,36 +53,34 @@ public class TodoApiController {
     @GetMapping(value = "/{categoryId}/todos/{todoNo}")
     public ResponseEntity<?> getTodoDetail(@PathVariable("categoryId") @NotBlank UUID categoryId
             , @PathVariable("todoNo") @NotBlank Long todoNo) throws Exception {
-        TodoDto.PathTodoNo pathTodoNo = TodoDto.PathTodoNo.builder().categoryId(categoryId).todoNo(todoNo).build();
-
-        return new ResponseEntity<>(todoService.getTodoDetail(pathTodoNo), HttpStatus.OK);
+        TodoPathDto.PathTodoNo pathTodoNo = TodoPathDto.PathTodoNo.builder().categoryId(categoryId).todoNo(todoNo).build();
+        Response response = todoService.getTodoDetail(pathTodoNo);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /**
      * 할일 등록 API
      *
-     * @param requestInsert(Object) 등록할 할일정보
+     * @param todoSaveDto(Object) 등록할 할일정보
      * @return ResponseEntity<Object> 201 Created
      */
     @PostMapping(value = "/{categoryId}/todos")
     public ResponseEntity<Void> insertTodo(@PathVariable("categoryId") @NotBlank UUID categoryId
-            , @RequestBody @Validated TodoDto.RequestInsert requestInsert) throws Exception {
-        todoService.insertTodo(requestInsert);
+            , @RequestBody @Validated TodoSaveDto todoSaveDto) throws Exception {
+        todoService.insertTodo(todoSaveDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /**
      * 할일 수정 API
      *
-     * @param requestUpdate(Object) 수정할 할일 정보
+     * @param todoUpdateDto(Object) 수정할 할일 정보
      * @return ResponseEntity<Object> 201 Created
      */
     @PutMapping(value = "/{categoryId}/todos/{todoNo}")
     public ResponseEntity<Object> updateTodo(@PathVariable("categoryId") @NotBlank UUID categoryId, @PathVariable("todoNo") @NotBlank Long todoNo,
-                                             @RequestBody @Validated TodoDto.RequestUpdate requestUpdate) throws Exception {
-
-        todoService.updateTodo(requestUpdate);
-
+                                             @RequestBody @Validated TodoUpdateDto todoUpdateDto) throws Exception {
+        todoService.updateTodo(todoUpdateDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -94,10 +94,8 @@ public class TodoApiController {
     public ResponseEntity<Object> deleteTodo(@PathVariable("categoryId") @NotBlank UUID categoryId
             , @PathVariable("todoNo") @NotBlank Long todoNo) throws Exception {
 
-        TodoDto.PathTodoNo todoDto = TodoDto.PathTodoNo.builder().categoryId(categoryId).todoNo(todoNo).build();
-
+        TodoPathDto.PathTodoNo todoDto = TodoPathDto.PathTodoNo.builder().categoryId(categoryId).todoNo(todoNo).build();
         todoService.deleteTodo(todoDto);
-
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

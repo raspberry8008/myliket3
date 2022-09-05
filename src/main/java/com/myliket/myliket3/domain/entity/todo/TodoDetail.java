@@ -1,38 +1,38 @@
-package com.myliket.myliket3.domain.todo;
+package com.myliket.myliket3.domain.entity.todo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.myliket.myliket3.domain.BaseTimeEntity;
+
+import com.myliket.myliket3.domain.entity.BaseTimeEntity;
+import com.myliket.myliket3.domain.entity.category.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
+
 
 /*
     TodoDetail : 할일 상세정보
 
     Long todoNo	: 할일 고유번호
-    UUID categoryId	: 카테고리 아이디
+    UUID categoryId	: 카테고리 아이디 (Category category Join)
     String todoTitle :	할일 제목
-    Long todoContent : 할일 내용
+    String todoContent : 할일 내용
     LocalDate todoDay : 할일 일정일자
     LocalTime todoTime : 할일 일정시간
-    String todoState : 할일 일정상태
-    LocalDateTime todoCreatedAt : 할일 최초 등록일시
-    LocalDateTime todoUpdatedAt : 할일 마지막 수정일
+    String todoStateCode : 할일 일정상태 (TodoState todoState Join)
 
  */
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-//@ToString(of = "data")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name ="tododetail")
+@Table(name = "tododetail")
 public class TodoDetail extends BaseTimeEntity {
 
     @Id
@@ -40,42 +40,41 @@ public class TodoDetail extends BaseTimeEntity {
     @Column(name = "todono")
     private Long todoNo;
 
-
-    @Column(name = "categoryid", columnDefinition = "BINARY(16)")
-    private UUID categoryId;
-
-
-    @Size(max=15)
+    @NotBlank
+    @Size(max = 15)
     @Column(name = "todotitle")
     private String todoTitle;
 
-
-    @Size(max=100)
+    @NotBlank
+    @Size(max = 100)
     @Column(name = "todocontent")
     private String todoContent;
 
-
+    @NotNull
     @Column(name = "tododay")
     private LocalDate todoDay;
-
+    @NotNull
     @Column(name = "todotime")
     private LocalTime todoTime;
 
-
-    @Size(min=2, max=2)
-    @Column(name = "todostate")
-    private String todoState;
-
-
     @Builder
-    public TodoDetail(Long todoNo, UUID categoryId, String todoTitle, String todoContent, LocalDate todoDay, LocalTime todoTime, String todoState) {
+    public TodoDetail(Category category, TodoState todoState, Long todoNo, String todoTitle, String todoContent, LocalDate todoDay, LocalTime todoTime) {
+        this.category = category;
+        this.todoState = todoState;
         this.todoNo = todoNo;
-        this.categoryId = categoryId;
         this.todoTitle = todoTitle;
         this.todoContent = todoContent;
         this.todoDay = todoDay;
         this.todoTime = todoTime;
-        this.todoState = todoState;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "categoryid")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "todostatecode")
+    private TodoState todoState;
+
 
 }

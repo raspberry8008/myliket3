@@ -1,15 +1,16 @@
 package com.myliket.myliket3.service.category;
 
-import com.myliket.myliket3.web.dto.CategoryDto;
-import com.myliket.myliket3.web.dto.Response;
+import com.myliket.myliket3.domain.dto.request.category.CategoryDto;
+import com.myliket.myliket3.domain.dto.response.common.Response;
 
 public interface CategoryService {
 
     /**
      * 카테고리 전체 목록 조회
      * methodName : allCategoryList
-     * @return List<?> 카테고리 목록
-     * */
+     *
+     * @return Response<List<CategoryDto>> 카테고리 전체목록
+     */
     Response allCategoryList() throws Exception;
 
     /**
@@ -17,9 +18,9 @@ public interface CategoryService {
      * methodName : getCategoryDetail
      *
      * @param requestInfo 요청한 카테고리 아이디
-     * @return categoryVO(Object) 카테고리 상세정보
+     * @return Response(Object) 카테고리 상세정보
      */
-    Response getCategoryDetail (CategoryDto.RequestInfo requestInfo) throws Exception ;
+    Response getCategoryDetail(CategoryDto.RequestInfo requestInfo) throws Exception;
 
     /**
      * 카테고리 등록
@@ -27,11 +28,12 @@ public interface CategoryService {
      *
      * @param requestInsert(Object) 등록할 카테고리 정보
      */
-    void insertCategory (CategoryDto.RequestInsert requestInsert) throws Exception;
+    void insertCategory(CategoryDto.RequestInsert requestInsert) throws Exception;
 
     /**
      * 카테고리 수정
      * methodName : updateCategory
+     *
      * @param requestUpdate 수정할 카테고리 정보
      */
     void updateCategory(CategoryDto.RequestUpdate requestUpdate) throws Exception;
@@ -39,8 +41,9 @@ public interface CategoryService {
     /**
      * 카테고리 삭제
      * methodName : deleteCategory
+     *
      * @param requestInfo 삭제요청한 카테고리 아이디
      * @return int 카테고리 삭제 데이터 처리 수
-     * */
-    void deleteCategory (CategoryDto.RequestInfo requestInfo) throws Exception;
+     */
+    void deleteCategory(CategoryDto.RequestInfo requestInfo) throws Exception;
 }

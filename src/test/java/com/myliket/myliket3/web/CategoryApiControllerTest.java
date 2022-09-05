@@ -1,7 +1,7 @@
 package com.myliket.myliket3.web;
 
-import com.myliket.myliket3.domain.category.Category;
-import com.myliket.myliket3.domain.category.CategoryRepository;
+import com.myliket.myliket3.domain.entity.category.Category;
+import com.myliket.myliket3.domain.entity.category.CategoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class CategoryApiControllerTest {
         Category categoryDto = Category.builder()
                 .categoryId(UUID.randomUUID())
                 .categoryName(name)
-                .categoryState(state)
+//                .categoryState(state)
                 .build();
 
         System.out.println("categoryDto:"+ categoryDto);

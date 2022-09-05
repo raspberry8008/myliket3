@@ -1,5 +1,9 @@
 package com.myliket.myliket3.domain.category;
 
+import com.myliket.myliket3.domain.entity.category.Category;
+import com.myliket.myliket3.domain.entity.category.CategoryRepository;
+import com.myliket.myliket3.domain.entity.category.CategoryRepositorySupport;
+import com.myliket.myliket3.domain.entity.category.CategoryState;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -7,8 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigInteger;
@@ -18,20 +20,25 @@ import java.util.UUID;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @RunWith(SpringRunner.class)
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @SpringBootTest
 public class CategoryRepositoryTest {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    CategoryRepositorySupport categoryRepositorySupport;
+
     @DisplayName("카테고리 등록 테스트")
     @Test
     public void 카테고리_등록하기() {
+        CategoryState categoryState = new CategoryState();
+
 
         Category category = Category.builder()
                 .categoryId(UUID.randomUUID())
                 .categoryName("Test")
-                .categoryState("CY")
+//                .categoryState("CY")
                 .build();
 
         categoryRepository.save(category);
@@ -40,7 +47,7 @@ public class CategoryRepositoryTest {
     @Test
     public void 카테고리_전체목록조회() {
 
-        List<Category> categories = categoryRepository.findAll(Sort.by("createdat").ascending());
+        List<Category> categories = categoryRepository.findAll();
 
     }
 
@@ -78,7 +85,7 @@ public class CategoryRepositoryTest {
         Category categoryInfo = Category.builder()
                 .categoryId(testUUID)
                 .categoryName("수정 Test..")
-                .categoryState("CY")
+//                .categoryState("CY")
                 .build();
 
         categoryRepository.save(categoryInfo);
@@ -97,6 +104,15 @@ public class CategoryRepositoryTest {
 
         // 2. 카테고리 삭제
         categoryRepository.delete(category);
+
+    }
+
+    @Test
+    public void 카테고리_이름검색하기() {
+
+        String categoryName = "Test..";
+
+        List<Category> categories = categoryRepositorySupport.findByName(categoryName);
 
     }
 }
