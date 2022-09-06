@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.myliket.myliket3.domain.entity.category.Category;
 import com.myliket.myliket3.domain.entity.todo.TodoDetail;
 import com.myliket.myliket3.domain.entity.todo.TodoState;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -58,6 +59,16 @@ public class TodoSaveDto {
         todoStateCode = "TR";
     }
 
+    @Builder
+    public TodoSaveDto(UUID categoryId, String todoTitle, String todoContent, LocalDateTime todoDayTime, LocalDate todoDay, LocalTime todoTime, String todoStateCode) {
+        this.categoryId = categoryId;
+        this.todoTitle = todoTitle;
+        this.todoContent = todoContent;
+        this.todoDayTime = todoDayTime;
+        this.todoDay = todoDay;
+        this.todoTime = todoTime;
+        this.todoStateCode = todoStateCode;
+    }
 
     public TodoDetail toEntity() {
         return TodoDetail.builder()

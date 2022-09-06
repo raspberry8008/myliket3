@@ -16,11 +16,11 @@ public class TodoDetailRepositorySupport extends QuerydslRepositorySupport {
 
     /**
      * 전체 할일을 조회 한다.
-     * methodName : allCategoryTodoList
+     * methodName : findAll
      *
      * @return List<?> 할일 목록
      */
-//    public List<Tuple> findAll() {
+//    public List<TodoDetail> findAll() {
 //        return queryFactory
 //                .select(
 //                        category.categoryName
@@ -29,15 +29,14 @@ public class TodoDetailRepositorySupport extends QuerydslRepositorySupport {
 //                        , todoDetail.todoContent
 //                        , todoDetail.todoDay
 //                        , todoDetail.todoTime
-//                        , todoDetail.todoState
-//                        , grbstate.stateKor
-
+//                        , todoState.todoStateCode
+//
 //                )
-//                .from(category, todoDetail, grbstate)
-//                .where(todoDetail.todoState.eq(grbstate.stateCode))
+//                .from(category, todoDetail, todoState)
+//                .where(todoDetail.todoState.eq(todoState.todoStateCode))
 //                .groupBy(todoDetail.todoNo)
 //                .orderBy(todoDetail.todoDay.asc(), todoDetail.todoTime.asc())
 //                .fetch();
-
+//
 //    }
 }

@@ -4,6 +4,7 @@ import com.myliket.myliket3.domain.dto.request.category.CategoryDto;
 import com.myliket.myliket3.domain.entity.todo.TodoDetail;
 import com.myliket.myliket3.domain.entity.todo.TodoDetailRepository;
 import com.myliket.myliket3.domain.entity.todo.TodoDetailRepositorySupport;
+import com.myliket.myliket3.domain.entity.todo.TodoState;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +45,7 @@ public class TodoDetailRepositoryTest {
                 .todoContent("할일 내용 입니다.")
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
-//                .todoState("TR")
+                .todoState(TodoState.builder().todoStateCode("TR").build())
                 .build();
 
 
@@ -54,8 +55,20 @@ public class TodoDetailRepositoryTest {
     @Test
     public void 할일_전체목록조회() {
 
-        List<TodoDetail> todoDetails = todoDetailRepository.findAll();
+        List<TodoDetail> todoDetails = todoDetailRepository.findAllByOrderByCategoryCreatedAtAscTodoNoAsc();
 //        List<?> todoDetails= todoDetailRepositorySupport.findAll();
+
+    }
+
+    @Test
+    public void 할일_단일카테고리_전체목록조회() {
+
+        String uuid = "88e0977f-c057-49d1-b4c2-15fa5d261e25".replace("-", "");
+        UUID testUUID = new UUID(
+                new BigInteger(uuid.substring(0, 16), 16).longValue(),
+                new BigInteger(uuid.substring(16), 16).longValue());
+
+        List<TodoDetail> todoDetails = todoDetailRepository.findByCategory_CategoryIdOrderByTodoNoAsc(testUUID);
 
     }
 
@@ -91,7 +104,7 @@ public class TodoDetailRepositoryTest {
                 .todoContent("할일 내용 입니다.")
                 .todoDay(LocalDate.parse("2022-09-20"))
                 .todoTime(LocalTime.parse("22:00:00"))
-//                .todoState("TR")
+                .todoState(TodoState.builder().todoStateCode("TR").build())
                 .build();
 
         todoDetailRepository.save(todoDetailInfo);

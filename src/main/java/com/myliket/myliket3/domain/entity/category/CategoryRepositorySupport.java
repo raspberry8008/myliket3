@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.myliket.myliket3.domain.category.QCategory.category;
+import static com.myliket.myliket3.domain.entity.category.QCategory.category;
 
 
 @Repository

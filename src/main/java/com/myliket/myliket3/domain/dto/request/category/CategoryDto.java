@@ -107,6 +107,12 @@ public class CategoryDto {
         @Pattern(regexp = "[A-Z]{2}$", message = "카테고리 상태코드(2자리)를 입력해주세요.")
         private String categoryStateCode;
 
+        @Builder
+        public RequestUpdate(UUID categoryId, String categoryName, String categoryStateCode) {
+            this.categoryId = categoryId;
+            this.categoryName = categoryName;
+            this.categoryStateCode = categoryStateCode;
+        }
 
         public Category toEntity() {
             return Category.builder()

@@ -20,10 +20,10 @@ public class TodoState {
 
     @Id
     @GeneratedValue
-    @Column(name = "todostatecode")
+    @Column(name = "todostatecode" , updatable = false)
     private String todoStateCode;
 
-    @Column(name = "todostatekor")
+    @Column(name = "todostatekor", updatable = false)
     private String todoStateKor;
 
 

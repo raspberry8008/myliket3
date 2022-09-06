@@ -6,7 +6,6 @@ import com.myliket.myliket3.domain.entity.category.CategoryRepositorySupport;
 import com.myliket.myliket3.domain.entity.category.CategoryState;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,8 +19,8 @@ import java.util.UUID;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @RunWith(SpringRunner.class)
-//@EnableJpaAuditing
 @SpringBootTest
+//@DataJpaTest
 public class CategoryRepositoryTest {
     @Autowired
     CategoryRepository categoryRepository;
@@ -29,16 +28,14 @@ public class CategoryRepositoryTest {
     @Autowired
     CategoryRepositorySupport categoryRepositorySupport;
 
-    @DisplayName("카테고리 등록 테스트")
+
     @Test
     public void 카테고리_등록하기() {
-        CategoryState categoryState = new CategoryState();
-
 
         Category category = Category.builder()
                 .categoryId(UUID.randomUUID())
                 .categoryName("Test")
-//                .categoryState("CY")
+                .categoryState(CategoryState.builder().categoryStateCode("CY").build())
                 .build();
 
         categoryRepository.save(category);
@@ -85,7 +82,7 @@ public class CategoryRepositoryTest {
         Category categoryInfo = Category.builder()
                 .categoryId(testUUID)
                 .categoryName("수정 Test..")
-//                .categoryState("CY")
+                .categoryState(CategoryState.builder().categoryStateCode("CY").build())
                 .build();
 
         categoryRepository.save(categoryInfo);
@@ -94,7 +91,7 @@ public class CategoryRepositoryTest {
     @Test
     public void 카테고리_삭제하기() {
 
-        String uuid = "d80d69ac-cd1d-4f2e-a103-29384798800c".replace("-", "");
+        String uuid = "ff12b9e4-9866-4a61-8778-8343ff01e161".replace("-", "");
         UUID testUUID = new UUID(
                 new BigInteger(uuid.substring(0, 16), 16).longValue(),
                 new BigInteger(uuid.substring(16), 16).longValue());
@@ -107,12 +104,12 @@ public class CategoryRepositoryTest {
 
     }
 
-    @Test
-    public void 카테고리_이름검색하기() {
-
-        String categoryName = "Test..";
-
-        List<Category> categories = categoryRepositorySupport.findByName(categoryName);
-
-    }
+//    @Test
+//    public void 카테고리_이름검색하기() {
+//
+//        String categoryName = "Test..";
+//
+//        List<Category> categories = categoryRepositorySupport.findByName(categoryName);
+//
+//    }
 }

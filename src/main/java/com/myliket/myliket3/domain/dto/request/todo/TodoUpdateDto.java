@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.myliket.myliket3.domain.entity.category.Category;
 import com.myliket.myliket3.domain.entity.todo.TodoDetail;
 import com.myliket.myliket3.domain.entity.todo.TodoState;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -57,6 +58,17 @@ public class TodoUpdateDto {
     @Pattern(regexp = "[A-Z]{2}$", message = "할일 상태코드(2자리)를 입력해주세요.")
     private String todoStateCode;
 
+    @Builder
+    public TodoUpdateDto(Long todoNo, UUID categoryId, String todoTitle, String todoContent, LocalDateTime todoDayTime, LocalDate todoDay, LocalTime todoTime, String todoStateCode) {
+        this.todoNo = todoNo;
+        this.categoryId = categoryId;
+        this.todoTitle = todoTitle;
+        this.todoContent = todoContent;
+        this.todoDayTime = todoDayTime;
+        this.todoDay = todoDay;
+        this.todoTime = todoTime;
+        this.todoStateCode = todoStateCode;
+    }
 
     public TodoDetail toEntity() {
         return TodoDetail.builder()
