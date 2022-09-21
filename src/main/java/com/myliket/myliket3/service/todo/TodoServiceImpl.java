@@ -54,7 +54,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Response getTodoDetail(TodoPathDto.PathTodoNo pathTodoNo) throws Exception {
 
-        if (todoDetailRepository.findByCategory_CategoryIdAndTodoNo(pathTodoNo.getCategoryId(), pathTodoNo.getTodoNo()).isEmpty()) {
+        if (todoDetailRepository.findByCategory_CategoryIdAndTodoNo(pathTodoNo.getCategoryId(), pathTodoNo.getTodoNo()).isPresent()) {
             return Response.builder().data(new TodoDetailDto()).build();
         } else {
             TodoDetail result = todoDetailRepository.getTodoDetailByCategory_CategoryIdAndTodoNo(pathTodoNo.getCategoryId(), pathTodoNo.getTodoNo());
@@ -75,7 +75,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void deleteTodo(TodoPathDto.PathTodoNo pathTodoNo) throws Exception {
         Optional<TodoDetail> resultEntity = todoDetailRepository.findById(pathTodoNo.getTodoNo());
-        if (!(resultEntity.isEmpty())) {
+        if (!(resultEntity.isPresent())) {
             TodoDetail resultDto = todoDetailRepository.getReferenceById(pathTodoNo.getTodoNo());
             todoDetailRepository.delete(resultDto);
         }

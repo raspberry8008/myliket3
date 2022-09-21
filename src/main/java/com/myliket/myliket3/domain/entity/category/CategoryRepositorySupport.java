@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.myliket.myliket3.domain.entity.category.QCategory.category;
 
 
 @Repository
@@ -19,17 +18,17 @@ public class CategoryRepositorySupport extends QuerydslRepositorySupport {
         this.queryFactory = queryFactory;
     }
 
-    /**
-     * 카테고리 이름 검색
-     * methodName : getCategoryByCategoryId
-     * @param categoryName 카테고리 이름
-     * @return Category(Object)
-     * */
-
-    public List<Category> findByName(String categoryName) {
-        return queryFactory
-                .selectFrom(category)
-                .where((category.categoryName.eq(categoryName)))
-                .fetch();
-    }
+//    /**
+//     * 카테고리 이름 검색
+//     * methodName : getCategoryByCategoryId
+//     * @param categoryName 카테고리 이름
+//     * @return Category(Object)
+//     * */
+//
+//    public List<Category> findByName(String categoryName) {
+//        return queryFactory
+//                .selectFrom(category)
+//                .where((category.categoryName.eq(categoryName)))
+//                .fetch();
+//    }
 }

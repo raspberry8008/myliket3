@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Response getCategoryDetail(CategoryDto.RequestInfo requestInfo) throws Exception {
 
-        if (categoryRepository.findById(requestInfo.getCategoryId()).isEmpty()) {
+        if (categoryRepository.findById(requestInfo.getCategoryId()).isPresent()) {
             return Response.builder().data(new CategoryDetailDto()).build();
         } else {
             Category resultDto = categoryRepository.getReferenceById(requestInfo.getCategoryId());
