@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class CategoryApiController {
      */
 
     @GetMapping(value = "/{categoryId}")
-    public ResponseEntity<Response> getCategoryDetail(@PathVariable("categoryId") @NotBlank UUID categoryId) throws Exception {
+    public ResponseEntity<Response> getCategoryDetail(@PathVariable("categoryId") @NotNull UUID categoryId) throws Exception {
         return ResponseEntity.ok().body(categoryService.getCategoryDetail(CategoryDto.RequestInfo.builder().categoryId(categoryId).build()));
     }
 

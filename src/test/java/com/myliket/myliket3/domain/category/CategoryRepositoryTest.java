@@ -51,7 +51,7 @@ public class CategoryRepositoryTest {
     @Test
     public void 카테고리_상세조회() {
 
-        String uuid = "88e0977f-c057-49d1-b4c2-15fa5d261e25".replace("-", "");
+        String uuid = "979eff61-f71d-458a-9efe-6c26a9834749".replace("-", "");
         UUID testUUID = new UUID(
                 new BigInteger(uuid.substring(0, 16), 16).longValue(),
                 new BigInteger(uuid.substring(16), 16).longValue());
